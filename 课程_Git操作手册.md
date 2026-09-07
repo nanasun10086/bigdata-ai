@@ -14,7 +14,7 @@
    - **Public**（免费、公开）或 **Private**（私密）—— 按需选择
    - **不要勾选** "Add a README" / ".gitignore" / "license"（因为本地已建好，避免冲突）
 3. 点击绿色 **Create repository**
-4. 创建后你会看到仓库主页，**复制 HTTPS 地址**（形如 `https://github.com/nanasun10086/bigdata-ai.git`）
+4. 创建后你会看到仓库主页，**复制 HTTPS 地址**（形如 `https://github.com/guoshanyongchun/bigdata-ai.git`）
 
 ---
 
@@ -36,7 +36,7 @@
 ## 三、配置 git 身份（建议全局）
 
 ```bash
-git config --global user.name "nanasun10086"
+git config --global user.name "guoshanyongchun"
 git config --global user.email "你的真实邮箱"
 # 若不想泄露邮箱，用 GitHub noreply 邮箱（Settings→Emails 里能看到）
 ```
@@ -59,7 +59,7 @@ git commit --amend --reset-author --no-edit   # 修正刚才演示 commit 的作
 cd "C:/Users/97545/WorkBuddy/大数据与人工智能"
 
 # 1. 关联远程仓库（换成你刚才复制的地址）
-git remote add origin https://github.com/nanasun10086/bigdata-ai.git
+git remote add origin https://github.com/guoshanyongchun/bigdata-ai.git
 
 # 2. 检查远程是否配置成功
 git remote -v
@@ -68,7 +68,7 @@ git remote -v
 git push -u origin main
 ```
 
-- 第一次 push 会弹出登录框 → 用户名填 `nanasun10086`，**密码处粘贴 token**（不是账号密码）
+- 第一次 push 会弹出登录框 → 用户名填 `guoshanyongchun`，**密码处粘贴 token**（不是账号密码）
 - Windows 会缓存凭据，之后 push 不再询问
 - 成功后刷新 GitHub 网页即可看到全部文件
 
@@ -83,7 +83,7 @@ git push -u origin main
 cd ~
 
 # 克隆到本地
-git clone https://github.com/nanasun10086/bigdata-ai.git
+git clone https://github.com/guoshanyongchun/bigdata-ai.git
 
 # 进入仓库
 cd bigdata-ai
