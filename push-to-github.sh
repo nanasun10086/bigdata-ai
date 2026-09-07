@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # =============================================================
-# 《大数据与人工智能》课程 · 一键关联远程并推送
-# 使用方式（在 Git Bash 中）：
+# 《大数据与人工智能》课程 · 一键推送到 GitHub
+# 使用方式（在 Windows 的 Git Bash 中）：
 #   cd "C:/Users/97545/WorkBuddy/大数据与人工智能"
 #   bash push-to-github.sh
-# 前提：你已在 GitHub 网页创建好远程仓库，并准备好 token
+# 前提：已创建远程仓库 bigdata-ai 并已关联 origin（已就绪）
+# 说明：本地已 init 并提交 3 笔，本脚本主要完成最后 git push
 # =============================================================
 
 set -e
@@ -28,7 +29,7 @@ echo ""
 CURRENT_REMOTE=$(git remote get-url origin 2>/dev/null || echo "")
 if [ -z "$CURRENT_REMOTE" ]; then
   echo "请输入远程仓库 HTTPS 地址（形如）："
-  echo "  https://github.com/nanasun10086/big-data-ai-course.git"
+  echo "  https://github.com/nanasun10086/bigdata-ai.git"
   read -r REPO_URL
   if [ -z "$REPO_URL" ]; then
     echo "!! 未输入地址，无法继续。"; exit 1
