@@ -10,7 +10,7 @@ set -e
 
 echo "=============================================="
 echo "  课程仓库一键推送到 GitHub"
-echo "  远程: https://github.com/guoshanyongchun/bigdata-ai.git"
+echo "  远程: https://github.com/nanasun10086/bigdata-ai.git"
 echo "=============================================="
 echo ""
 
@@ -28,7 +28,7 @@ echo ""
 CURRENT_REMOTE=$(git remote get-url origin 2>/dev/null || echo "")
 if [ -z "$CURRENT_REMOTE" ]; then
   echo "请输入远程仓库 HTTPS 地址："
-  echo "  https://github.com/guoshanyongchun/bigdata-ai.git"
+  echo "  https://github.com/nanasun10086/bigdata-ai.git"
   read -r REPO_URL
   if [ -z "$REPO_URL" ]; then
     echo "!! 未输入地址，无法继续。"; exit 1
@@ -49,11 +49,11 @@ fi
 echo ""
 # 4. 推送到远程
 echo ">>> 开始推送 main 分支到 GitHub ..."
-echo ">>> 若弹出登录：用户名填 guoshanyongchun，密码处粘贴你的 token"
+echo ">>> 若弹出登录：用户名填 nanasun10086，密码处粘贴你的 token"
 git push -u origin main
 
 echo ""
 echo "=============================================="
 echo "  推送成功！刷新 GitHub 网页即可看到文件"
-echo "  https://github.com/guoshanyongchun/bigdata-ai"
+echo "  https://github.com/nanasun10086/bigdata-ai"
 echo "=============================================="

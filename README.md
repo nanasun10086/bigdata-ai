@@ -1,8 +1,8 @@
 # 大数据与人工智能 · 课程仓库
 
 > 个人课程仓库 · 记录学习笔记、实验代码与项目
-> 作者：guoshanyongchun
-> 远程仓库：https://github.com/guoshanyongchun/bigdata-ai
+> 作者：nanasun10086
+> 远程仓库：https://github.com/nanasun10086/bigdata-ai
 
 ## 📁 目录结构
 
@@ -26,7 +26,7 @@ bigdata-ai/
 
 ```bash
 # 克隆仓库
-git clone https://github.com/guoshanyongchun/bigdata-ai.git
+git clone https://github.com/nanasun10086/bigdata-ai.git
 
 # 进入目录
 cd bigdata-ai
