@@ -9,12 +9,12 @@
 
 1. 浏览器登录 [github.com](https://github.com)，点击右上角 **+** → **New repository**（或直接访问 `https://github.com/new`）
 2. 填写：
-   - **Repository name**：`big-data-ai-course`（或你喜欢的英文小写名）
+   - **Repository name**：`bigdata-ai`（或你喜欢的英文小写名）
    - **Description**（可选）：`大数据与人工智能 课程作业与项目`
    - **Public**（免费、公开）或 **Private**（私密）—— 按需选择
    - **不要勾选** "Add a README" / ".gitignore" / "license"（因为本地已建好，避免冲突）
 3. 点击绿色 **Create repository**
-4. 创建后你会看到仓库主页，**复制 HTTPS 地址**（形如 `https://github.com/nanasun10086/big-data-ai-course.git`）
+4. 创建后你会看到仓库主页，**复制 HTTPS 地址**（形如 `https://github.com/nanasun10086/bigdata-ai.git`）
 
 ---
 
@@ -59,7 +59,7 @@ git commit --amend --reset-author --no-edit   # 修正刚才演示 commit 的作
 cd "C:/Users/97545/WorkBuddy/大数据与人工智能"
 
 # 1. 关联远程仓库（换成你刚才复制的地址）
-git remote add origin https://github.com/nanasun10086/big-data-ai-course.git
+git remote add origin https://github.com/nanasun10086/bigdata-ai.git
 
 # 2. 检查远程是否配置成功
 git remote -v
@@ -83,10 +83,10 @@ git push -u origin main
 cd ~
 
 # 克隆到本地
-git clone https://github.com/nanasun10086/big-data-ai-course.git
+git clone https://github.com/nanasun10086/bigdata-ai.git
 
 # 进入仓库
-cd big-data-ai-course
+cd bigdata-ai
 ```
 
 ---
@@ -118,8 +118,8 @@ git push
 | `git commit -m "..."` | 提交快照 | ✅ `42ebb26` |
 | `git status` | 查看工作区状态 | ✅ clean |
 | `git log --oneline` | 查看提交历史 | ✅ 可见 |
-| `git remote add origin URL` | 关联远程 | 待你在真实终端执行 |
-| `git push -u origin main` | 推送到远程 | 待你执行（需 token） |
+| `git remote add origin URL` | 关联远程 | ✅ 已配 `bigdata-ai.git` |
+| `git push -u origin main` | 推送到远程 | ✅ 已尝试(认证完成，请见下方状态) |
 | `git clone URL` | 拉取远程仓库 | 待你执行 |
 
 ---
