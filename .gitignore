@@ -1,18 +1,174 @@
-# 数据文件（体积大或敏感，不入库）
+# =========================================================
+#  .gitignore · bigdata-ai
+#  用途：忽略运行时产物 / 系统杂项 / 本地工具目录，
+#       以及最重要的——各类 API Key、密码、凭据等敏感信息。
+#  原则：宁可多忽略，不可让密钥误入库。若确实需要共享配置，
+#        请使用 `.env.example`（只含占位符，无真实值）。
+# =========================================================
+
+# ---------- 1. 敏感信息 / 凭据 / 密钥（最高优先级保护） ----------
+# 环境变量文件（真实密钥通常放这里）
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.local.example
+
+# 常见密钥 / 证书 / 凭据文件
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.cer
+*.crt
+*.pub
+id_rsa
+id_rsa.pub
+id_ed25519
+id_dsa
+*.ssh
+
+# 各类服务凭据 / token / secret / config（若含真实值）
+*secret*
+*credential*
+*token*
+*apikey*
+*api_key*
+*apikeys.json
+*service-account*.json
+credentials.json
+client_secret*.json
+auth.json
+secrets.yaml
+secrets.yml
+.vault/
+
+# 数据库 / 连接串
+*.sqlite
+*.sqlite3
+*.db
+*.db3
+
+# 通用配置文件（若其中可能含真实值；确需入库请用 .example 模板）
+*.env.local
+config.local.json
+settings.local.json
+
+# ---------- 2. 数据文件（体积大或敏感，不入库） ----------
 data/*
 !data/.gitkeep
 
-# 缓存与运行产物
+# ---------- 3. Python 缓存与运行产物 ----------
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# IDE
+# 虚拟环境
+.venv/
+venv/
+env/
+ENV/
+pyvenv.cfg
+
+# 单元测试 / 覆盖率
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.cache/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+# 类型检查 / 工具
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ---------- 4. Node / 前端（如后续引入） ----------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.lerna/
+.eslintcache
+dist/
+.next/
+out/
+
+# ---------- 5. IDE / 编辑器 ----------
 .vscode/
 .idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+.project
+.classpath
+.settings/
+*.code-workspace
 
-# 系统
+# ---------- 6. 操作系统 / 系统杂项 ----------
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
-# WorkBuddy 自身工作目录(不入库)
+# ---------- 7. 日志 / 临时 / 压缩包 ----------
+*.log
+logs/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.bak
+*.old
+*.orig
+*.zip
+*.tar
+*.gz
+*.7z
+*.rar
+
+# ---------- 8. WorkBuddy 自身工作目录（不入库，含用户配置） ----------
 .workbuddy/
+
+# ---------- 9. 其它本地私有说明 / 草稿 ----------
+*_draft.*
+*_backup.*
+/scratch/
