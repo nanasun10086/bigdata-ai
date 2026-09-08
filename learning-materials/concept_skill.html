@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>概念学习资料 · Skill</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2733; --sub:#5b6675;
+    --line:#e6e9ef; --brand:#7048e8; --brand-soft:#f1edff;
+    --accent:#f59f00; --accent-soft:#fff9e6; --warn:#e8590c; --warn-soft:#fff4e6;
+    --code:#f1f3f5; --shadow:0 1px 3px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.75}
+  .wrap{max-width:820px;margin:0 auto;padding:40px 20px 80px}
+  .hero{background:linear-gradient(135deg,#5f3dc4 0%,#7048e8 55%,#9c36b5 120%);color:#fff;border-radius:16px;padding:36px 34px;margin-bottom:30px;box-shadow:var(--shadow)}
+  .hero .kicker{font-size:13px;letter-spacing:2px;opacity:.85;margin-bottom:6px;text-transform:uppercase}
+  .hero h1{margin:0 0 10px;font-size:34px;font-weight:800;letter-spacing:.5px}
+  .hero p{margin:0;font-size:15px;opacity:.93;line-height:1.7}
+  .hero .badges{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+  .hero .badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:999px;font-size:12.5px}
+  h2{font-size:23px;margin:40px 0 6px;padding-bottom:10px;border-bottom:3px solid var(--brand-soft);position:relative;display:flex;align-items:center;gap:12px}
+  h2 .num{background:var(--brand);color:#fff;font-size:15px;width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  h3{font-size:18px;margin:26px 0 10px;color:var(--brand)}
+  p{margin:10px 0}
+  .lead{background:var(--brand-soft);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:16px 20px;margin:16px 0;font-size:15.5px}
+  .lead b.one-liner{display:block;font-size:19px;margin-bottom:6px;color:var(--brand)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0;box-shadow:var(--shadow)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+  .tile .t{font-weight:700;color:var(--ink);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .tile p{margin:0;font-size:14px;color:var(--sub)}
+  .tag{font-size:12px;padding:2px 10px;border-radius:999px;font-weight:600}
+  .tag.high{background:var(--accent-soft);color:var(--accent)}
+  .tag.mid{background:var(--brand-soft);color:var(--brand)}
+  code{background:var(--code);padding:2px 7px;border-radius:6px;font-family:"JetBrains Mono",Consolas,Menlo,monospace;font-size:.92em}
+  table{width:100%;border-collapse:collapse;margin:14px 0;background:var(--card);box-shadow:var(--shadow);border-radius:12px;overflow:hidden}
+  th,td{border:1px solid var(--line);padding:11px 14px;text-align:left;font-size:14px;vertical-align:top}
+  th{background:#f0f2f7;font-weight:700}
+  ul,ol{padding-left:22px}
+  li{margin:6px 0}
+  pre{background:#282c34;color:#e6e6e6;border-radius:12px;padding:16px 20px;overflow-x:auto;font-size:13px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  .note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:14.5px}
+  .source{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 22px;margin:10px 0}
+  .source li{font-size:14.5px}
+  .source a{color:var(--brand);text-decoration:none;word-break:break-all}
+  .source a:hover{text-decoration:underline}
+  .qa{border:1px solid var(--line);border-radius:12px;padding:4px 20px;margin:12px 0;background:var(--card)}
+  .qa details summary{cursor:pointer;font-weight:600;padding:12px 0;list-style:none;position:relative}
+  .qa details summary::after{content:"＋";position:absolute;right:0;color:var(--brand);font-weight:800}
+  .qa details[open] summary::after{content:"－"}
+  .qa .ans{padding:0 0 16px;font-size:14.5px;color:var(--sub);border-top:1px dashed var(--line)}
+  .qa .ans b{color:var(--ink)}
+  .back{position:fixed;bottom:24px;right:24px;background:var(--brand);color:#fff;border:none;border-radius:50%;width:46px;height:46px;font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(112,72,232,.4)}
+  .vs{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0}
+  .vs .head{display:flex;background:#f0f2f7;font-weight:700;font-size:13.5px}
+  .vs .head div{padding:9px 14px;flex:1;text-align:center}
+  .vs .head div:first-child{background:var(--brand);color:#fff}
+  .vs .row{display:flex;border-top:1px solid var(--line);font-size:13.5px}
+  .vs .row div{padding:9px 14px;flex:1}
+  .vs .row div:first-child{flex:0 0 110px;background:#f7f8fb;font-weight:600;color:var(--sub)}
+  .foot{text-align:center;color:#98a1b0;font-size:13px;margin-top:50px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Concept Learning Material · 03</div>
+    <h1>Skill（技能）</h1>
+    <p>在 Agent 世界里，"技能"是把"会做一件事的方法"封装成可复用、可被 AI 调用的说明书+工具包。本资料讲清它是什么、怎么运作、能干什么、别和什么搞混。</p>
+    <div class="badges"><span class="badge">Prompt 工程</span><span class="badge">可复用</span><span class="badge">工具封装</span><span class="badge">Agent 能力</span></div>
+  </div>
+
+  <h2><span class="num">01</span>个人解释 Personal Explanation</h2>
+  <div class="lead">
+    <b class="one-liner">一句话：Skill 是写给 AI 看的一份"做某事的完整操作手册"，可反复调用、随时唤醒。</b>
+    普通提示词像"给 AI 的一句口头叮嘱"，这次说了下次还要再叮嘱一遍。而 Skill 是把<b>"识别什么情况该用 + 具体怎么做 + 需要哪些参考资料/脚本"</b>打包成一份标准化文件（通常叫 <code>SKILL.md</code>），AI 学会后会"看到相关需求就自动触发并照章执行"——相当于给 AI 装上了一张"职业技能证书"。
+  </div>
+  <p>用人类世界打比方：招聘时你不会每次面试都重新发明"怎么面试"，而是有一套 <b>SOP（标准作业流程）</b>——什么岗位、问哪些问题、如何评分。Skill 之于 Agent，就是这个 SOP：把<b>一次性的聪明</b>沉淀为<b>可重复的专业能力</b>。</p>
+  <div class="card">
+    <h3>一个生活化类比 📋</h3>
+    <p>想象你新雇了一位助理，他本身很聪明但<b>什么行业知识都没有</b>。你可以：<br>① 每次遇到一个流程都现场口述一遍（= 普通 prompt，费劲且易漏）；<br>② 把"如何做月报 / 如何订机票 / 如何写合同"各写成一份<b>图文手册</b>放在文件夹里，并告诉他"遇到这类活就翻对应手册照着做"（= Skill）。<br>选②，他才能<b>独立、稳定、批量</b>地帮你处理这些事。</p>
+  </div>
+  <div class="note"><b>个人倾向（可讨论）：</b>Skill 最值钱的地方不是"多给 AI 几句提示"，而是<b>把经验结构化、把动作脚本化、把知识可持续维护</b>。但别神化它——它本质上仍是"提示 + 资料 + 脚本"的组合，输出质量取决于 Skill 写得好不好、以及底层模型的能力边界。好的 Skill 要<b>边界清晰</b>（何时用、何时不用），否则会像给了把锤子、看谁都像钉子。</div>
+
+  <h2><span class="num">02</span>核心机制 Core Mechanism</h2>
+  <p>以常见实现为例，一个 Skill 通常是<b>一个目录 + 一份元数据说明书 + 可选附属文件</b>。</p>
+  <h3>典型文件结构</h3>
+  <pre><code>my-skill/
+├─ SKILL.md        ← 核心：给 AI 的"操作手册"，含 YAML 元数据
+├─ scripts/        ← 可选：可直接运行的脚本/工具
+├─ references/     ← 可选：参考文档/模板/示例
+└─ assets/         ← 可选：图片等素材</code></pre>
+  <h3>SKILL.md 的典型骨架</h3>
+  <pre><code>---
+name: my-skill
+description: 在"什么场景"下被触发（写给调度器/AI 判断是否调用）
+---
+
+# 我的技能
+## 0. 角色与目标
+## 1. 适用场景（何时触发、何时不触发）
+## 2. 输入信息（必填/可选）
+## 3. 执行步骤（Step1→StepN 的 SOP）
+## 4. 输出/交付物
+## 5. 自检/质量要求</code></pre>
+  <h3>它如何"被运行"</h3>
+  <div class="flow-note">
+  <p>关键在于 <code>description</code>：当用户提出请求时，Agent/调度层会<b>把已安装 Skill 的 description 与当前任务做匹配</b>，命中则把对应 <code>SKILL.md</code> 全文加载进上下文，AI 据此"变身"成该领域的执行者，照章完成任务。就像一个技能触发器。</p>
+  </div>
+  <div class="card">
+    <h3>一个最小 walk-through 示例 🧪</h3>
+    <p>假设装了一个"<code>meeting-notes</code>"技能（生成会议纪要）。</p>
+    <ol>
+      <li><b>触发：</b>你说"帮我把这段讨论整理成会议纪要，顺便发给同事"。其 <code>description</code> 含"会议纪要、整理讨论、参会人、行动项"等关键词 → 命中。</li>
+      <li><b>加载：</b>系统把 <code>meeting-notes/SKILL.md</code> 全文读入上下文。</li>
+      <li><b>执行：</b>AI 照手册要求：提取参会人→归纳议题→列决议→列行动项（责任人+截止）→格式化。</li>
+      <li><b>交付：</b>产出一份规范纪要，并按其步骤调用发信工具发送。</li>
+    </ol>
+    <p><b>关键：</b>下次你再要纪要，不用重新教它格式——技能已记住"怎么干"。这就是 Skill 的复用价值。</p>
+  </div>
+  <h3>核心组成一句话</h3>
+  <ul>
+    <li><b>元数据 description</b> → 决定"何时被唤醒"（触发匹配）。</li>
+    <li><b>正文 SOP</b> → 决定"具体怎么干"（稳定产出）。</li>
+    <li><b>附属脚本/资料</b> → 决定"能不能真干活"（调用工具/本地能力）。</li>
+  </ul>
+
+  <h2><span class="num">03</span>应用场景 Use Cases</h2>
+  <div class="grid">
+    <div class="tile"><div class="t">文档/报告生成 <span class="tag high">高频</span></div><p>把"写报告/纪要/合同"的固定规范封装成技能，保证格式与质量一致，省去重复交代。</p></div>
+    <div class="tile"><div class="t">专业领域问答 <span class="tag high">高频</span></div><p>把某领域的方法论（如"概念学习资料生成"）写成技能，AI 见需求即按方法论执行。</p></div>
+    <div class="tile"><div class="t">特定格式处理 <span class="tag high">高频</span></div><p>固定要求转表格/转 HTML/转 docx，用技能固化"输入→转换→输出"规则。</p></div>
+    <div class="tile"><div class="t">流程自动化</div><p>把多步操作（搜→整理→排版→发送）打包，让 AI 一键跑通。</p></div>
+    <div class="tile"><div class="t">团队共享最佳实践</div><p>把团队积累的经验固化成技能文件，供成员/Agent 复用，实现"知识资产化"。</p></div>
+  </div>
+  <div class="note"><b>何时该用 / 何时别硬用：</b>当某类任务<b>会反复出现、步骤相对稳定、值得统一标准</b>时适合做 Skill；一次性/无固定章法的任务做成 Skill 反而增加维护负担。</div>
+
+  <h2><span class="num">04</span>边界辨析 Boundary & Distinctions</h2>
+  <h3>与易混淆概念对比</h3>
+  <div class="vs">
+    <div class="head"><div>维度</div><div>Skill（技能）</div><div>Prompt（提示词）</div></div>
+    <div class="row"><div>形态</div><div>结构化文件+元数据+可选脚本，可被自动触发</div><div>一段一次性文本指令</div></div>
+    <div class="row"><div>触发</div><div>靠 description 匹配自动唤醒</div><div>每次都要用户手动提供</div></div>
+    <div class="row"><div>复用/维护</div><div>集中成文件，可版本管理、团队共享</div><div>散落各处，难以统一维护</div></div>
+    <div class="row"><div>可编程性</div><div>可带脚本、工具调用，能"真干活"</div><div>通常只影响"怎么说"</div></div>
+  </div>
+  <div class="vs">
+    <div class="head"><div>维度</div><div>Skill（技能）</div><div>Tool / MCP（工具）</div></div>
+    <div class="row"><div>本质</div><div>指导 AI "怎么做"的方法/操作流程</div><div>AI 可调用的外部能力接口（查天气、操作软件）</div></div>
+    <div class="row"><div>倾向</div><div>偏"知/流程"</div><div>偏"行/接口"</div></div>
+    <div class="row"><div>关系</div><div>常作为 Skill 的执行手段</div><div>可被 Skill 调用</div></div>
+  </div>
+  <h3>它不能做什么（局限性）</h3>
+  <ul>
+    <li>Skill 不改变底层模型能力——模型不会、Skill 也教不会；它只是把"已知会做的步骤"稳定化。</li>
+    <li>没有配套工具/接口的 Skill，"说明书再厚也无法真正执行外部动作"。</li>
+    <li>依赖加载（把 SKILL.md 全文读入上下文），内容过长会挤占上下文、增加成本。</li>
+  </ul>
+  <h3>新手误区 / 直觉陷阱</h3>
+  <ul>
+    <li><b>误区：Skill 能教会模型任何新知识。</b>只能封装"可描述的步骤/规则"，无法凭空赋予模型不具备的推理或知识能力。</li>
+    <li><b>误区：Skill = Tool。</b>Skill 偏"流程方法"，Tool 偏"可执行接口"，两者不同层、常配合使用。</li>
+    <li><b>误区：写一个 SKILL.md 就一劳永逸。</b>质量差的 Skill（触发描述含糊、步骤不清）反而会误触发或产出不稳定，需像代码一样维护与测试。</li>
+  </ul>
+
+  <h2><span class="num">05</span>来源链接 Sources</h2>
+  <p class="lead">Skill 作为一种"Agent 能力封装"模式，不同平台实现细节有差异；以下为模式通识与主流实现参考。核验日期：<b>2026-09-08</b>。</p>
+  <div class="source">
+    <ul>
+      <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic — Building Effective Agents</a> —— 提供了"工作流 / 工具 / 自主 Agent"的分层理解，是理解 Skill 所处位置的好背景。</li>
+      <li><a href="https://www.anthropic.com/news/skills">Anthropic — Introducing Agent Skills</a> —— 提供了"把能力封装为可复用技能（SKILL.md）"的产品化概念说明。</li>
+      <li><a href="https://github.com/anthropics/skills">Anthropic Skills 官方仓库（示例）</a> —— 提供了 Skill 目录结构与 SKILL.md 写法示例。</li>
+      <li><a href="https://platform.openai.com/docs/guides/prompt-engineering">OpenAI — Prompt Engineering Guide</a> —— 提供了提示结构化的底层方法参考。</li>
+      <li><a href="https://modelcontextprotocol.io/">Model Context Protocol（MCP）官网</a> —— 提供了"工具/能力接入"标准，用于辨析 Skill 与 Tool 的边界。</li>
+    </ul>
+  </div>
+
+  <h2><span class="num">06</span>学习回顾自测 Quiz</h2>
+  <div class="qa"><details><summary>1. 用自己的话解释：Skill 相比"每次都现场交代怎么做"，优势在哪？</summary><div class="ans"><b>参考答案：</b>把"什么情况该用 + 具体步骤 + 参考脚本"固化成一个可被自动触发的标准文件后：①不用每次重复交代，节省沟通；②产出更稳定、标准统一；③可集中维护、版本管理、团队复用，把经验沉淀为资产；④可附带脚本实现真正执行而不只是"说"。</div></details></div>
+  <div class="qa"><details><summary>2. 场景判断题：某助手"会联网搜索（这是它的一个能力接口）"，与"按一套研报写作规范自动出研报"——哪一个更像 Skill？</summary><div class="ans"><b>参考答案：</b>后者更像 Skill。联网搜索是可被调用的"工具/接口"；而"按研报规范自动出研报"封装了写作流程与触发条件，属于可复用技能。若该技能还调用搜索工具去取数，就是 Skill 内嵌 Tool 的典型配合。</div></details></div>
+  <div class="qa"><details><summary>3. 深入理解题：为什么说"Skill 并不能凭空增强模型能力"？那它的价值到底是什么？</summary><div class="ans"><b>参考答案：</b>模型的能力天花板由其训练决定，Skill 只是把"既有能力"按固定、可靠的流程组织并触发，无法教会模型本身不掌握的东西。它的价值在于：①把不稳定的单次发挥变成稳定可复现的产出；②减少用户重复交代；③通过挂脚本/资料扩展可用范围（但这本质靠的是工具，不是给模型"灌知识"）。所以它是"组织与调用"层面的增益，而非"能力"层面的增益。</div></details></div>
+
+  <div class="foot">本资料由 concept-learning-skill 生成 · 概念学习资料 · 个人解释为核心的教学向内容，来源链接见第五章</div>
+  <button class="back" onclick="window.scrollTo({top:0,behavior:'scroll'})">↑</button>
+</div>
+</body>
+</html>

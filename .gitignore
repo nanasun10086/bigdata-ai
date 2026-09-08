@@ -13,3 +13,6 @@ __pycache__/
 # 系统
 .DS_Store
 Thumbs.db
+
+# WorkBuddy 自身工作目录(不入库)
+.workbuddy/

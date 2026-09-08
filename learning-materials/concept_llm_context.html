@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>概念学习资料 · 大模型的上下文</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2733; --sub:#5b6675;
+    --line:#e6e9ef; --brand:#0ca678; --brand-soft:#e6faf2;
+    --accent:#3b5bdb; --accent-soft:#eef1fe; --warn:#e8590c; --warn-soft:#fff4e6;
+    --code:#f1f3f5; --shadow:0 1px 3px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.75}
+  .wrap{max-width:820px;margin:0 auto;padding:40px 20px 80px}
+  .hero{background:linear-gradient(135deg,#0ca678 0%,#12b886 50%,#66d9e8 120%);color:#fff;border-radius:16px;padding:36px 34px;margin-bottom:30px;box-shadow:var(--shadow)}
+  .hero .kicker{font-size:13px;letter-spacing:2px;opacity:.85;margin-bottom:6px;text-transform:uppercase}
+  .hero h1{margin:0 0 10px;font-size:34px;font-weight:800;letter-spacing:.5px}
+  .hero p{margin:0;font-size:15px;opacity:.93;line-height:1.7}
+  .hero .badges{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+  .hero .badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:999px;font-size:12.5px}
+  h2{font-size:23px;margin:40px 0 6px;padding-bottom:10px;border-bottom:3px solid var(--brand-soft);position:relative;display:flex;align-items:center;gap:12px}
+  h2 .num{background:var(--brand);color:#fff;font-size:15px;width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  h3{font-size:18px;margin:26px 0 10px;color:var(--brand)}
+  p{margin:10px 0}
+  .lead{background:var(--brand-soft);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:16px 20px;margin:16px 0;font-size:15.5px}
+  .lead b.one-liner{display:block;font-size:19px;margin-bottom:6px;color:var(--brand)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0;box-shadow:var(--shadow)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+  .tile .t{font-weight:700;color:var(--ink);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .tile p{margin:0;font-size:14px;color:var(--sub)}
+  .tag{font-size:12px;padding:2px 10px;border-radius:999px;font-weight:600}
+  .tag.high{background:var(--accent-soft);color:var(--accent)}
+  .tag.mid{background:#f1f3f5;color:#495057}
+  .flow{display:flex;flex-direction:column;gap:0;margin:16px 0}
+  .fstep{display:flex;align-items:flex-start;gap:14px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--brand);border-radius:10px;padding:14px 18px;margin:4px 0}
+  .fstep .no{flex:none;width:30px;height:30px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .fstep p{margin:0;font-size:14.5px}
+  .fstep p b{color:var(--ink)}
+  code{background:var(--code);padding:2px 7px;border-radius:6px;font-family:"JetBrains Mono",Consolas,Menlo,monospace;font-size:.92em}
+  table{width:100%;border-collapse:collapse;margin:14px 0;background:var(--card);box-shadow:var(--shadow);border-radius:12px;overflow:hidden}
+  th,td{border:1px solid var(--line);padding:11px 14px;text-align:left;font-size:14px;vertical-align:top}
+  th{background:#f0f2f7;font-weight:700}
+  ul,ol{padding-left:22px}
+  li{margin:6px 0}
+  .note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:14.5px}
+  .source{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 22px;margin:10px 0}
+  .source li{font-size:14.5px}
+  .source a{color:var(--brand);text-decoration:none;word-break:break-all}
+  .source a:hover{text-decoration:underline}
+  .qa{border:1px solid var(--line);border-radius:12px;padding:4px 20px;margin:12px 0;background:var(--card)}
+  .qa details summary{cursor:pointer;font-weight:600;padding:12px 0;list-style:none;position:relative}
+  .qa details summary::after{content:"＋";position:absolute;right:0;color:var(--brand);font-weight:800}
+  .qa details[open] summary::after{content:"－"}
+  .qa .ans{padding:0 0 16px;font-size:14.5px;color:var(--sub);border-top:1px dashed var(--line)}
+  .qa .ans b{color:var(--ink)}
+  .back{position:fixed;bottom:24px;right:24px;background:var(--brand);color:#fff;border:none;border-radius:50%;width:46px;height:46px;font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(12,166,120,.4)}
+  .foot{text-align:center;color:#98a1b0;font-size:13px;margin-top:50px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Concept Learning Material · 02</div>
+    <h1>大模型的上下文（Context）</h1>
+    <p>为什么模型"记不住"上次聊天？为什么文件太长塞不进？为什么叫"上下文窗口"？——一次讲清大模型"看得见什么、记到哪"这件事。</p>
+    <div class="badges"><span class="badge">上下文窗口</span><span class="badge">Token</span><span class="badge">Attention</span><span class="badge">记忆</span></div>
+  </div>
+
+  <h2><span class="num">01</span>个人解释 Personal Explanation</h2>
+  <div class="lead">
+    <b class="one-liner">一句话：大模型的"上下文"= 它当下这一轮能"同时看到并依赖"的全部文字，放不进去的它看不见。</b>
+    想象一个有<b>超强阅读力但极短"桌面"</b>的专家：你把一份材料放上桌，他读得又快又准；但桌面只有那么大，摆不下的文件他就根本看不到，更别提记住桌外早先放过的东西——除非你帮他归档成笔记再放回桌上。
+  </div>
+  <p>聊天里的"上下文"常指三样东西叠在一起：<b>系统设定</b>（你是谁、怎么回答）+ <b>多轮对话历史</b>（你和它前面聊了啥）+ <b>当前输入/附加资料</b>（刚发的话、粘贴的文件）。模型每次生成都把这些"一次性喂进去"，因此：<b>它不是"记"住的，而是每一轮都重新"读"一遍全部上下文再作答</b>。</p>
+  <div class="card">
+    <h3>一个生活化类比 🧠</h3>
+    <p>把大模型想象成一位<b>读过一次就忘、但每次都能重新看笔记</b>的考生。你每次问他，都得把"要考的笔记"摆在他眼前（塞进上下文）。他的"短期笔记夹"（上下文窗口）就那么大——装不下的页数会被裁掉。至于"上次他记住的你"，其实靠的是你把聊天记录逐字叠回去，他并没有独立的长时记忆。</p>
+  </div>
+  <div class="note"><b>个人倾向（可讨论）：</b>把"上下文"和"记忆"当成两件事，是理解大模型产品设计的关键。厂商宣传"百万上下文"很诱人，但塞得进 ≠ 用得准——超长上下文常伴随"中间内容被稀释"（lost in the middle）与更高成本。真正聪明的工程是<b>少塞、塞对、分层记忆</b>，而不是一味把东西都堆进上下文。</div>
+
+  <h2><span class="num">02</span>核心机制 Core Mechanism</h2>
+  <p>上下文之所以存在上限，根子在 Transformer 的 <b>Attention（注意力）</b>机制：模型要让上下文里任意两个词都能"互相看"，每轮计算的注意力量大致<b>随输入长度平方增长（O(n²)）</b>。所以"上下文窗口"是模型在<b>参数量、显存/算力、精度</b>之间权衡出的可承载文本上限。</p>
+  <h3>计量单位：Token（词元）</h3>
+  <p>窗口不是按"字数/字符"算，而是按 <b>Token</b> 算。Token 是模型处理文本的最小单元，可粗略理解为"半个到一个词"。例如"大模型的上下文"可能被切成若干个 token。中文下 1 个汉字常约合 1~2 token。各家模型"窗口"如 8K / 128K / 1M（如 GPT-4o 系列、Claude、Gemini 的 1M+），指的都是最多能容纳的 token 数。</p>
+  <h3>一次生成的完整流程</h3>
+  <div class="flow">
+    <div class="fstep"><div class="no">1</div><p><b>接收输入</b>：系统提示 + 对话历史 + 新消息 + 可能附带的检索文档，全部拼接为输入序列。</p></div>
+    <div class="fstep"><div class="no">2</div><p><b>切 Token</b>：把文本切成 token 序列；若超出窗口上限，会被<b>截断</b>（通常是丢弃最早/最远的历史）。</p></div>
+    <div class="fstep"><div class="no">3</div><p><b>喂进模型</b>：整段进入 Transformer，通过自注意力让各 token 互相建立关联、携带彼此信息。</p></div>
+    <div class="fstep"><div class="no">4</div><p><b>逐词生成</b>：模型每次只预测"下一个 token"，依据的是<b>当前全部上下文 + 它刚生成的词</b>。</p></div>
+    <div class="fstep"><div class="no">5</div><p><b>回写历史</b>：新生成的话被追加进历史，作为"下一轮"上下文的一部分继续滚动。</p></div>
+  </div>
+  <h3>最小 walk-through 示例 🧪</h3>
+  <div class="card">
+    <p>假设窗口 = <code>4K</code> tokens，对话推进：</p>
+    <ol>
+      <li>你贴入一篇约 <code>3K tokens</code> 的文档，问"总结要点"。 → 3K 资料 + 你的问题 ≈ 3.2K，<b>在窗口内</b>，正常回答。</li>
+      <li>你又问了 20 轮，历史膨胀到约 <code>5K tokens</code>。 → 超出 4K 上限，系统<b>从最早的历史开始截断</b>，只保留最近约 4K。</li>
+      <li>现在问"我们最开始那篇文档的第 2 节讲了啥？" → 那部分已被裁掉，模型<b>答不上来</b>。</li>
+    </ol>
+    <p><b>结论：</b>模型不是"忘了"，而是那部分内容因为<b>没进入当前上下文</b>而不存在——这正是"上下文"与"记忆"的根本分野。</p>
+  </div>
+  <h3>缓解长文的常见工程手段</h3>
+  <ul>
+    <li><b>检索增强（RAG）</b>：不整篇塞入，而是先检索相关片段再放进上下文。</li>
+    <li><b>摘要/压缩历史</b>：把旧轮次压成几句摘要保留。</li>
+    <li><b>长上下文模型</b>：用 128K~1M 窗口直接容纳更多内容。</li>
+  </ul>
+
+  <h2><span class="num">03</span>应用场景 Use Cases</h2>
+  <div class="grid">
+    <div class="tile"><div class="t">长文档处理 <span class="tag high">高频</span></div><p>直接喂入整份论文/合同/代码库做问答。解决"内容太长、放不下"的基础需求。</p></div>
+    <div class="tile"><div class="t">多轮对话助理 <span class="tag high">高频</span></div><p>客服/写作/编程对话。上下文承载前面聊过的事实与偏好，保证回答连贯。</p></div>
+    <div class="tile"><div class="t">系统提示词（System Prompt）</div><p>把角色、规则、工具说明写进上下文头部，约束模型行为。</p></div>
+    <div class="tile"><div class="t">检索增强 RAG <span class="tag high">高频</span></div><p>把检索到的"相关知识块"注入上下文再让模型回答，兼顾新鲜与省 token。</p></div>
+    <div class="tile"><div class="t">工具/函数定义注入</div><p>把可用函数的 schema 放进上下文，让模型学会"申请调用哪个工具"。</p></div>
+    <div class="tile"><div class="t">Agent 多步记忆 <span class="tag mid">进阶</span></div><p>把当前任务的状态、中间结果放回上下文，供自主循环持续参考。</p></div>
+  </div>
+  <div class="note"><b>何时该用 / 何时别硬用：</b>需要模型"理解长文、跨多轮连贯"时充分用好上下文；但<b>别用上下文当永久数据库</b>——那是给记忆/检索系统的活。盲目加大窗口会显著抬高每轮成本与延迟。</div>
+
+  <h2><span class="num">04</span>边界辨析 Boundary & Distinctions</h2>
+  <h3>与易混淆概念对比</h3>
+  <table>
+    <tr><th>维度</th><th>上下文 Context</th><th>记忆 Memory</th></tr>
+    <tr><td>本质</td><td>本轮一次性喂给模型、可见可依赖的文本</td><td>跨会话/跨轮的持久化信息（向量库、知识库等）</td></tr>
+    <tr><td>载体</td><td>输入序列（token）</td><td>外部存储，需要时再检索回填进上下文</td></tr>
+    <tr><td>有无上限</td><td>受上下文窗口限制</td><td>理论上可很大，但取用仍需回填</td></tr>
+    <tr><td>丢失表现</td><td>超出即被截断、内容消失</td><td>靠"检索没召回"而暂时取不到，非真消失</td></tr>
+  </table>
+  <p>同样需要区分<b>上下文窗口（容量）</b>与<b>"模型能不能有效利用全部窗口"（有效上下文）</b>——研究（如 "Lost in the Middle"）表明模型对超长上下文的<b>中部信息利用率偏低</b>，别假设"放得下就一定会被用好"。</p>
+  <h3>它不能做什么（局限性）</h3>
+  <ul>
+    <li>不能<b>主动跨会话记得你</b>——除非产品把历史/记忆写回上下文。</li>
+    <li>塞不进窗口的长内容若未截断策略保护，信息会被<b>静默丢弃</b>。</li>
+    <li>超长上下文= 高 token 成本 + 更慢 + 中部信息被稀释，不是越大越好。</li>
+  </ul>
+  <h3>新手误区 / 直觉陷阱</h3>
+  <ul>
+    <li><b>误区：模型"记得"上次聊了什么。</b>其实是每轮都把历史逐字叠回上下文，它靠"重读"而非"记住"。</li>
+    <li><b>误区：上下文按"字"算。</b>按 Token 算，中文/英文/代码的 token 数差异很大。</li>
+    <li><b>误区：窗口越大越好。</b>大窗口带来成本、延迟与"lost in the middle"，关键内容应放头尾或显式强调。</li>
+  </ul>
+
+  <h2><span class="num">05</span>来源链接 Sources</h2>
+  <p class="lead">关键论断基于领域通用知识整理与下列权威公开资料。核验日期：<b>2026-09-08</b>。模型窗口数值随版本变化，请以各家官方文档为准。</p>
+  <div class="source">
+    <ul>
+      <li><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need (Vaswani et al., 2017)</a> —— 提供了自注意力机制与复杂度背景，是"上下文上限根因"的理论来源。</li>
+      <li><a href="https://platform.openai.com/docs/guides/context-engineering">OpenAI — Context engineering 官方指南</a> —— 提供了"上下文工程"、token、放不进窗口怎么办的工程化说明。</li>
+      <li><a href="https://arxiv.org/abs/2307.03172">Lost in the Middle: How Language Models Use Long Contexts</a> —— 提供了"长上下文中部信息利用率下降"的现象证据。</li>
+      <li><a href="https://www.promptingguide.ai/">Prompt Engineering Guide</a> —— 提供了 System Prompt / 上下文设计相关方法参考。</li>
+      <li>各家模型官方说明（GPT-4o / Claude / Gemini 上下文窗口与 tokenizer）—— 提供了窗口容量与 token 计量的实例对照，属易变信息，以官方为准。</li>
+    </ul>
+  </div>
+
+  <h2><span class="num">06</span>学习回顾自测 Quiz</h2>
+  <div class="qa"><details><summary>1. 用自己的话解释：为什么模型关掉网页再打开，就"不记得"你上次聊了什么？</summary><div class="ans"><b>参考答案：</b>因为模型没有原生持久记忆，它靠每一轮把"历史文字"重新放进上下文来"重读"。新会话没有把这些历史回填进上下文，它就看不到，自然答不上来——它不是忘了，是那部分根本没进它"当前可见的输入"。</div></details></div>
+  <div class="qa"><details><summary>2. 场景判断题：你贴了一篇 2000 字的文章，窗口是 4K token（约等于 3 千多汉字）。又问了一堆话把历史撑爆。问最早那篇的第 2 节，模型说"没提过"。原因最可能是？</summary><div class="ans"><b>参考答案：</b>很可能是最早内容被<b>截断丢弃</b>了。历史超过窗口上限时，系统通常会裁剪最早的对话/文档，保留最近的 token。所以那不是模型"记性差"，而是那段内容已不在当前上下文里。</div></details></div>
+  <div class="qa"><details><summary>3. 深入理解题：既然窗口越大越好，为什么厂商还要做"截断历史/压缩摘要"而不是把所有东西都塞进去？</summary><div class="ans"><b>参考答案：</b>三点：①成本与延迟随 token 数快速上升，每轮都要处理全部上下文；②超长上下文存在 "lost in the middle"，中间信息利用率低，硬塞反而稀释重点；③计算量随长度增长，超长输入会显著拖慢并抬高显存占用。因此好的设计是"分层记忆 + 检索 + 摘要"，用最小且高相关的上下文达到效果。</div></details></div>
+
+  <div class="foot">本资料由 concept-learning-skill 生成 · 概念学习资料 · 个人解释为核心的教学向内容，来源链接见第五章</div>
+  <button class="back" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+</body>
+</html>
