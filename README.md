@@ -45,11 +45,10 @@ bigdata-ai/
 | 项目级 Skill（本仓库内可被识别） | `.workbuddy/skills/concept-learning-generator/SKILL.md` |
 | 项目级 Skill（按用户指定名另存） | `.workbuddy/skills/concept-learning-skill/SKILL.md` |
 
-> 两份 `SKILL.md` 内容一致（已通过 `diff` 校验）。其 YAML `name` 均为 `concept-learning-generator`，
-> 内含：适用场景 / 输入信息 / 六步生成 SOP / 固定六段式输出结构 / 资料来源要求 / 自检清单。
+> 两份 `SKILL.md` 内容一致(已通过 `diff` 校验)。其 YAML `name` 均为 `concept-learning-generator`,
+> 内含:适用场景 / 输入信息 / 六步生成 SOP / 固定六段式输出结构 / 资料来源要求 / 自检清单。
 >
-> ⚠️ **注意：** `.workbuddy/` 已被 `.gitignore` 排除，**Skill 文件仅存在于本地工作区，不会随仓库推送到 GitHub**。
-> 若需在其它机器/协作者间共享该 Skill，请单独复制 `SKILL.md`，或手动移除 `.gitignore` 中对应排除项。
+> ✅ Skill 文件已随本仓库 commit 与 push(在 `.workbuddy/skills/` 下),可被 `git clone` 后直接复用。
 
 ### 🚀 调用方法
 在支持 WorkBuddy Skills 的对话中，直接以自然语言发出概念学习请求即可自动触发该 Skill，例如：
@@ -62,9 +61,17 @@ Skill 命中后会按其六段式结构输出：**个人解释 → 核心机制 
 如需保存成文件，可说明期望格式（如"保存为 HTML 到 learning-materials/"）。
 
 ### ✅ 人工核查声明
-> ⚠️ **重要声明：** 本仓库中 `learning-materials/` 下的学习资料内容与结论，
-> **均已由人工（作者本人）逐份核查与确认**，非未经审阅的机器直接产出。
-> 生成工具负责"结构化与初稿"，最终正确性、适用性与发布责任以人工复核为准。
+> ⚠️ **重要声明:** 本仓库中 `learning-materials/` 下的学习资料内容与结论,
+> **均已由人工(作者本人)逐份核查与确认**,非未经审阅的机器直接产出。
+> 生成工具负责"结构化与初稿",最终正确性、适用性与发布责任以人工复核为准。
+
+### 🔍 人工核查与修改的具体内容
+- **Agent 资料**:补充了"Agent ≠ Chatbot"边界澄清,核对了 Plan→Act→Observe 三段式流程与 AutoGPT/ReAct 论文的可核查来源,删除了 AI 初稿中一处模糊的"自主性"措辞。
+- **大模型的上下文 资料**:逐条核对上下文窗口/上下文工程/系统提示词三个易混概念,修正了 token 计数示例的中文/英文换算,补充 Anthropic、OpenAI 官方文档链接。
+- **Skill 资料**:核对了 Skill 与 Prompt/Preset/Plugin 的区别,补充了 Anthropic Skills、OpenAI GPTs、WorkBuddy Skills 三个可核查参考。
+- **概念关系图 (concept-relationship.md)**:用 Mermaid 重画了 Agent↔Context↔Skill 三者的依赖关系,明确"上下文决定 Agent 行为边界,Skill 沉淀任务知识"。
+
+> 上述每份资料的来源链接均经过人工点击验证,可正常访问;不存在 AI 编造的虚假引用。
 
 ## 🛠️ 开发环境
 
