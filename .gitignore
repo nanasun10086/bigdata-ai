@@ -165,8 +165,13 @@ logs/
 *.7z
 *.rar
 
-# ---------- 8. WorkBuddy 自身工作目录（不入库，含用户配置） ----------
-.workbuddy/
+# ---------- 8. WorkBuddy 自身工作目录(配置/缓存不入库,但 Skills 必须入库) ----------
+# 忽略工作目录本身的元数据,但保留项目级 Skill
+.workbuddy/cache/
+.workbuddy/state/
+.workbuddy/logs/
+.workbuddy/config.local.*
+.workbuddy/memory/
 
 # ---------- 9. 其它本地私有说明 / 草稿 ----------
 *_draft.*
